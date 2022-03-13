@@ -14,7 +14,7 @@ Then setup, create, and enable a [virtualenv](https://virtualenv.pypa.io/en/stab
 
     pip install numpy opencv-python
 
-The PyTorch setup varies a bit depending on the OS, see [here](https://pytorch.org/). Use a version with CUDA only if you have an Nvidia GPU. In any case, ensure to install the current version of PyTorch, which is 1.8.0. This is the version we will use for testing all assignments and if they fail due to version issues, you'll get significant point deductions. Confirm this via:
+The PyTorch setup varies a bit depending on the OS, see [here](https://pytorch.org/). Use a version with CUDA only if you have an Nvidia GPU. In any case, ensure to install PyTorch version 1.8.2. This is the version we will use for testing all assignments and if they fail due to version issues, you'll get significant point deductions. Confirm this via:
 
     python -c "import torch; print(torch.__version__)"
 
