@@ -28,7 +28,7 @@ Then implement the `PetsDataset` (`datasets/pets.py`). Some parts of this assign
 
 * Number of samples in the individual datasets: 7959 (training), 2041 (validation), 2000 (test).
 * Total number of cat and dog samples: 6000 per class
-* Image shape: always `(32, 32, 3`, image type: always `uint8`
+* Image shape: always `(32, 32, 3)`, image type: always `uint8`
 * Labels of first 10 training samples: `0 0 0 0 1 0 0 0 0 1`
 * Make sure that the color channels are in BGR order (not RGB) by displaying the images and verifying the colors are correct (`cv2.imshow`, `cv2.imwrite`).
 
