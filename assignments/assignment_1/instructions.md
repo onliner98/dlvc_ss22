@@ -20,7 +20,7 @@ The PyTorch setup varies a bit depending on the OS, see [here](https://pytorch.o
 
 ## Part 1
 
-Download the reference code from [here](https://smithers.cvl.tuwien.ac.at/theitzinger/dlvc_ss21_public/-/tree/master/assignments/reference), making sure that the file structure is preserved, and rename the root folder to something other than `reference`. Read the code and make sure that you understand what the individual classes and methods are doing.
+Download the reference code from [here](https://smithers.cvl.tuwien.ac.at/jstrohmayer/dlvc_ss22/-/tree/main/assignments/reference), making sure that the file structure is preserved, and rename the root folder to something other than `reference`. Read the code and make sure that you understand what the individual classes and methods are doing.
 
 [Download](https://www.cs.toronto.edu/~kriz/cifar.html) and extract the *Python* version of the CIFAR10 dataset somewhere *outside* the code folder. Read the website to understand which classes there are and how the data are structured and read.
 
@@ -36,7 +36,7 @@ Do not modify, add or delete any other files.
 
 ## Part 2
 
-Make sure you have the most recent [reference code](https://smithers.cvl.tuwien.ac.at/theitzinger/dlvc_ss21_public/-/tree/master/assignments/reference). Next to updated code we will occasionally add clarifications or correct errors. You can check the individual commits to see what has changed.
+Make sure you have the most recent [reference code](https://smithers.cvl.tuwien.ac.at/jstrohmayer/dlvc_ss22/-/tree/main/assignments/reference). Next to updated code we will occasionally add clarifications or correct errors. You can check the individual commits to see what has changed.
 
 In this part we will implement common functionality for classifier training. As we'll see in the lecture, training and testing is almost always done in mini-batches, with each being a small part of the whole data. To do so, finish the `BatchGenerator` class in `batches.py`. Make sure to read the comments and implement type and value checks accordingly.
 
@@ -66,7 +66,7 @@ Finally we will use accuracy as the performance measure for our classifiers. See
 
 ## Part 3
 
-In this part we will implement a simple classifier and test all of the code implemented so far. At this point the classifier will not be a deep neural network. Instead we will implement a linear classifier with PyTorch that serves as a baseline for future results. Get the `linear_cats_and_dogs.py` script from the latest version of the [reference code](https://smithers.cvl.tuwien.ac.at/theitzinger/dlvc_ss21_public/-/tree/master/assignments/reference) and implement the missing functionalities (see TODOs). 
+In this part we will implement a simple classifier and test all of the code implemented so far. At this point the classifier will not be a deep neural network. Instead we will implement a linear classifier with PyTorch that serves as a baseline for future results. Get the `linear_cats_and_dogs.py` script from the latest version of the [reference code](https://smithers.cvl.tuwien.ac.at/jstrohmayer/dlvc_ss22/-/tree/main/assignments/reference) and implement the missing functionalities (see TODOs). 
 
 The `linear_cats_and_dogs.py` script should do the following, in this order: 
 1. Implement the network architecture of the linear classifier `LinearClassifier` (use a single `torch.nn.linear` layer).
