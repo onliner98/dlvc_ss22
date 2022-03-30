@@ -63,3 +63,59 @@ To test the batch generator make sure the following applies (the following list 
 * The first sample of the first training batch returned *with shuffling* must be random.
 
 Finally we will use accuracy as the performance measure for our classifiers. See the lecture slides for how this measure is defined and implement the `Accuracy` class in `test.py` accordingly. This class supports batch-wise updates which will be handy in the future.
+
+## Part 3
+
+In this part we will implement a simple classifier and test all of the code implemented so far. At this point the classifier will not be a deep neural network. Instead we will implement a linear classifier with PyTorch that serves as a baseline for future results. Get the `linear_cats_and_dogs.py` script from the latest version of the [reference code](https://smithers.cvl.tuwien.ac.at/theitzinger/dlvc_ss21_public/-/tree/master/assignments/reference) and implement the missing functionalities (see TODOs). 
+
+The `linear_cats_and_dogs.py` script should do the following, in this order: 
+1. Implement the network architecture of the linear classifier `LinearClassifier` (use a single `torch.nn.linear` layer).
+2. Load the training, validation, and test sets as individual `PetsDataset`s.
+3. Create a `BatchGenerator` for each dataset using the input transformation chain `op`. Set the minibatch size equal to the number of dataset samples to get a single large batch.
+4. Select optimization critereon and optimizer. Use `torch.nn.CrossEntropyLoss()` as optimization critereon and pick an optimizer from `torch.optim`. Popular choices are `torch.optim.SGD` or `torch.optim.Adam`, however, you are free to experiment with other optimizers (and their parameters).   
+5. Train your `LinearClassifier` for at least 100 epochs, measure the classification accuracy on the validation dataset throughout the training and save the best performing model. This should be implemented as a generic training loop that writes the epoch number, training loss and validation accuracy to console at the end of each epoch. 
+6. After training, measure the classification accuracy of the best performing model on the test dataset. Write the best validation accuracy and the test accuracy to console as well.
+
+Running your `linear_cats_and_dogs.py` script should produce (ignoring the values) a console output similar to:
+```python
+...
+epoch 99
+train loss: 0.636
+val acc: 0.595
+epoch 100
+train loss: 0.635
+val acc: 0.596
+--------------------
+val acc (best): 0.596
+test acc: 0.616
+```
+
+## Report
+
+Write a short report (2 to 3 pages) that answers the following questions:
+
+* Why do general machine learning algorithms (those expecting vector input) perform
+poorly on images? What is a feature, and what is the purpose of feature extraction?
+Explain the terms low-level feature and high-level feature.
+* What is the purpose of a loss function? What does the cross-entropy measure? Which
+criteria must the ground-truth labels and predicted class-scores fulfill to support the
+cross-entropy loss, and how is this ensured?
+* What is the purpose of the training, validation, and test sets and why do we need all of them?
+
+Also include your results obtained from `linear_cats_and_dogs.py`. Include the validation accuracies as a table or (better) a plot as well as the final test accuracy. Compare the best validation accuracy and the final test accuracy, and discuss the results. Furthermore, state which optimizer (and optimizer parameters) were used.
+
+## Submission
+
+Submit your assignment until **April 15th at 11pm**. To do so, create a zip archive including the report, the complete `dlvc` folder with your implementations as well as `linear_cats_and_dogs.py` (do not include the CIFAR-10 dataset). More precisely, after extracting the archive we should obtain the following:
+
+    group_x/
+        report.pdf
+        linear_cats_and_dogs.py
+        dlvc/
+            batches.py
+            ...
+            datasets/
+                ...
+            ...
+
+Submit the zip archive in TUWEL. Make sure you've read the general assignment information [here](https://smithers.cvl.tuwien.ac.at/jstrohmayer/dlvc_ss22/-/blob/main/assignments/general.md) before your final submission.
