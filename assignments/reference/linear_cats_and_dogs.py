@@ -5,7 +5,6 @@ from dlvc.test import Accuracy
 import dlvc.ops as ops
 import numpy as np
 import torch
-import torch.nn.functional as F
 
 
 # TODO: Define the network architecture of your linear classifier.
