@@ -69,7 +69,7 @@ Finally we will use accuracy as the performance measure for our classifiers. See
 In this part we will implement a simple classifier and test all of the code implemented so far. At this point the classifier will not be a deep neural network. Instead we will implement a linear classifier with PyTorch that serves as a baseline for future results. Get the `linear_cats_and_dogs.py` script from the latest version of the [reference code](https://smithers.cvl.tuwien.ac.at/jstrohmayer/dlvc_ss22/-/tree/main/assignments/reference) and implement the missing functionalities (see TODOs). 
 
 The `linear_cats_and_dogs.py` script should do the following, in this order: 
-1. Implement the network architecture of the linear classifier `LinearClassifier` (use a single `torch.nn.linear` layer).
+1. Implement the network architecture of the linear classifier `LinearClassifier` (use a single `torch.nn.Linear` layer).
 2. Load the training, validation, and test sets as individual `PetsDataset`s.
 3. Create a `BatchGenerator` for each dataset using the input transformation chain `op`. Set the minibatch size equal to the number of dataset samples to get a single large batch.
 4. Select optimization critereon and optimizer. Use `torch.nn.CrossEntropyLoss()` as optimization critereon and pick an optimizer from `torch.optim`. Popular choices are `torch.optim.SGD` or `torch.optim.Adam`, however, you are free to experiment with other optimizers (and their parameters).   
