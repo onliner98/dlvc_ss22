@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 import numpy as np
 
+
 class PerformanceMeasure(metaclass=ABCMeta):
     '''
     A performance measure.
@@ -60,17 +61,14 @@ class Accuracy(PerformanceMeasure):
         '''
         Ctor.
         '''
-
         self.reset()
 
     def reset(self):
         '''
         Resets the internal state.
         '''
-
-        # TODO implement
-
-        pass
+        self.right_prediction = 0
+        self.predictions = 0
 
     def update(self, prediction: np.ndarray, target: np.ndarray):
         '''
@@ -81,19 +79,18 @@ class Accuracy(PerformanceMeasure):
         Raises ValueError if the data shape or values are unsupported.
         '''
 
-        # TODO implement
-
-        pass
+        if prediction.shape[0] != target.shape[0]:
+            raise ValueError(f"Shape mismatch. The two vector must have the same number of row")
+        class_pred = np.argmax(prediction, axis=1)
+        self.right_prediction += np.sum(class_pred == target)
+        self.predictions += len(target)
 
     def __str__(self):
         '''
         Return a string representation of the performance.
         '''
 
-        # TODO implement
-        # return something like "accuracy: 0.395"
-
-        pass
+        return f"accuracy: {self.accuracy()}"
 
     def __lt__(self, other) -> bool:
         '''
@@ -103,9 +100,10 @@ class Accuracy(PerformanceMeasure):
 
         # See https://docs.python.org/3/library/operator.html for how these
         # operators are used to compare instances of the Accuracy class
-        # TODO implement
 
-        pass
+        if not isinstance(other, Accuracy):
+            raise TypeError(f'Invalid parameter type. Expected:{Accuracy}. Provided:{type(other)}.')
+        return self.accuracy() < other.accuracy()
 
     def __gt__(self, other) -> bool:
         '''
@@ -113,9 +111,9 @@ class Accuracy(PerformanceMeasure):
         Raises TypeError if the types of both measures differ.
         '''
 
-        # TODO implement
-
-        pass
+        if not isinstance(other, Accuracy):
+            raise TypeError(f'Invalid parameter type. Expected:{Accuracy}. Provided:{type(other)}.')
+        return self.accuracy() > other.accuracy()
 
     def accuracy(self) -> float:
         '''
@@ -123,7 +121,6 @@ class Accuracy(PerformanceMeasure):
         Returns 0 if no data is available (after resets).
         '''
 
-        # TODO implement
-        # on this basis implementing the other methods is easy (one line)
-
-        pass
+        if self.predictions == 0:
+            return 0
+        return self.right_prediction / self.predictions

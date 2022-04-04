@@ -1,7 +1,13 @@
 import typing
 
+import numpy as np
+import sklearn.utils
+
 from .dataset import Dataset
 from .ops import Op
+
+from sklearn.utils import shuffle
+
 
 class Batch:
     '''
@@ -17,6 +23,7 @@ class Batch:
         self.label = None
         self.idx = None
 
+
 class BatchGenerator:
     '''
     Batch generator.
@@ -26,7 +33,7 @@ class BatchGenerator:
       idx: numpy array with shape (s,) encoding the indices of each sample in the original dataset.
     '''
 
-    def __init__(self, dataset: Dataset, num: int, shuffle: bool, op: Op=None):
+    def __init__(self, dataset: Dataset, num: int, shuffle: bool, op: Op = None):
         '''
         Ctor.
         Dataset is the dataset to iterate over.
@@ -37,26 +44,52 @@ class BatchGenerator:
         Raises ValueError on invalid argument values, such as if num is > len(dataset).
         '''
 
-        # TODO implement
+        if not isinstance(dataset, Dataset):
+            raise TypeError(f'Invalid type for dataset. Expected:{Dataset}. Provided:{type(dataset)}.')
+        if not isinstance(num, int):
+            raise TypeError(f'Invalid type argument for num. Expected:{int}. Provided:{type(num)}.')
+        if not isinstance(shuffle, bool):
+            raise TypeError(f'Invalid type argument for shuffle. Expected:{bool}. Provided:{type(shuffle)}.')
 
-        pass
+        if num > len(dataset):
+            raise ValueError('Invalid value argument for num. num > len(dataset).')
+        if num < 1:
+            raise ValueError('Invalid value argument for num. num < 1.')
+
+        self.dataset = dataset
+        self.num = num
+        self.op = op
+
+        # control the shuffle parameter
+        self.idx = np.arange(len(self.dataset))
+        if shuffle:
+            np.random.shuffle(self.idx)
 
     def __len__(self) -> int:
         '''
         Returns the total number of batches the dataset is split into.
-            This is identical to the total number of batches yielded every time the __iter__ method is called.
+                This is identical to the total number of batches yielded every time the __iter__ method is called.
         '''
-
-        # TODO implement
-
-        pass
+        split_range = range(0, len(self.dataset), self.num)[1:]
+        batches_idx = np.split(self.idx, split_range)
+        self.len = len(batches_idx)
+        return self.len
 
     def __iter__(self) -> typing.Iterable[Batch]:
-        '''
+        """
         Iterate over the wrapped dataset, returning the data as batches.
-        '''
+        """
 
-        # TODO implement
-        # The "yield" keyword makes this easier
+        split_range = range(0, len(self.dataset), self.num)[1:]
+        batches_idx = np.split(self.idx, split_range)
 
-        pass
+
+        for b in batches_idx:
+            batch = Batch()
+            data = self.dataset.X[b]
+            if self.op is not None:
+                data = np.asarray([self.op(i) for i in data])
+            batch.data = data
+            batch.label = self.dataset.y[b]
+            batch.idx = b
+            yield batch
