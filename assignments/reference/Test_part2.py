@@ -6,12 +6,10 @@ import numpy as np
 
 # 1. Load the training, validation, and test sets as individual PetsDatasets.
 
-fp = '/mnt/1028D91228D8F7A4/Python Project/PycharmProjects/DeepLearning/assignments/src/cifar10'
+fp = '/mnt/1028D91228D8F7A4/Python Project/PycharmProjects/DeepLearning/assignments/reference/cifar10'
 
 print("Load data")
 train_ds = PetsDataset(fp, Subset.TRAINING)
-valid_ds = PetsDataset(fp, Subset.VALIDATION)
-test_ds = PetsDataset(fp, Subset.TEST)
 print("Data Loaded")
 
 # 2. Create a BatchGenerator for each one. Traditional classifiers don't usually train in batches so you can set the
