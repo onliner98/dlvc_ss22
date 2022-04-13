@@ -44,7 +44,7 @@ def train_model(linear_classifier, criterion, optimizer, epochs, train_data, val
 
             # convert the np.array in tensor
             t_inputs = torch.tensor(inputs)
-            t_labels = torch.tensor(labels)
+            t_labels = torch.tensor(labels).to(torch.long) #cast labels to long so the CE works (CE throws exception with int)
 
             # zero the parameter gradients, for every batch I must compute the gradient again
             optimizer.zero_grad()
@@ -71,7 +71,7 @@ def train_model(linear_classifier, criterion, optimizer, epochs, train_data, val
 
 
 def main():
-    fp = '/mnt/1028D91228D8F7A4/Python Project/PycharmProjects/DeepLearning/assignments/reference/cifar10'
+    fp = 'C:/Users/admin/Desktop/10. Semester/Computer Vision/dlvc_ss22/assignments/reference/cifar10'
 
     print("Load data")
     train_ds = PetsDataset(fp, Subset.TRAINING)
