@@ -1,12 +1,7 @@
 import typing
-
 import numpy as np
-import sklearn.utils
-
 from .dataset import Dataset
 from .ops import Op
-
-from sklearn.utils import shuffle
 
 
 class Batch:
