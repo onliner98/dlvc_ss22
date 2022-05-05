@@ -98,7 +98,7 @@ op_da = ops.chain([
     ops.hwc2chw(),
 ])
 
-# try neither, only wd weak, only wd medium, only wd overreg, only da, both
+# try neither, only wd weak, only wd medium, only wd overreg, only da, both => was used to find best_config
 # a config contains [wd, ops]
 configs = [
     [0, op_no_da, 'cnn_neither'],
@@ -122,8 +122,17 @@ net = CNN(input_shape[0])
 # move to cuda if available
 net.to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
 
+op_hf = ops.chain([
+    ops.type_cast(np.float32),
+    ops.add(-127.5),
+    ops.mul(1 / 127.5),
+    ops.hflip(),
+    ops.hwc2chw(),
+])
+best_config = [[0.01, op_hf, 'cnn_low_wd_and_hf']]
+
 results = []
-for wd, op, name in configs:
+for wd, op, name in best_config:
     best_val_acc, test_acc = run_experiment(fp, net, name, n_epochs, batch_size, input_shape, num_classes, shuffle, lr, wd, op)
     results.append([name, best_val_acc, test_acc])
     
