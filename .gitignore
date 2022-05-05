@@ -1,5 +1,2 @@
-assignments/reference/dlvc/__pycache__
-assignments/reference/dlvc/datasets/__pycache__/
-assignments/reference/dlvc/models/__pycache__/
-assignments/reference/dlvc/models/.ipynb_checkpoints/
-assignments/reference/dlvc/.ipynb_checkpoints/
+**/__pycache__/
+**/.ipynb_checkpoints
