@@ -87,6 +87,8 @@ class PetsDataset(ClassificationDataset):
         Returns the idx-th sample in the dataset.
         Raises IndexError if the index is out of bounds. Negative indices are not supported.
         '''
+        if idx < 0 or idx >=self.len:
+            raise IndexError
         return Sample(idx, self.X[idx], self.y[idx])
 
         pass
