@@ -113,12 +113,12 @@ configs = [
 fp = 'C:/Users/admin/Desktop/10. Semester/Computer Vision/dlvc_ss22/assignments/reference/cifar10'
 n_epochs = 100
 batch_size=128
-input_shape = (3, 32, 32)
+input_shape = (0, 3, 32, 32)
 num_classes = 2
 shuffle = True
 lr = 0.01
 
-net = CNN(input_shape[0])
+net = CNN(input_shape[1])
 # move to cuda if available
 net.to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
 

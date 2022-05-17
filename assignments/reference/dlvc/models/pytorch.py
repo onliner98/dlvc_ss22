@@ -61,12 +61,13 @@ class CnnClassifier(Model):
         Raises RuntimeError on other errors.
         '''
         # Raise Errors
+        if data.dtype != np.float32 or labels.dtype !=int:
+            raise TypeError
+        if (not self.check_shape(data.shape)):
+            raise ValueError
+        if (labels<0).any() or (labels>self.num_classes - 1).any():
+            raise ValueError
         try:
-            if data.dtype != np.float32 or labels.dtype !=int:
-                raise TypeError
-            if (labels<0).any() or (labels>self.num_classes - 1).any():
-                raise ValueError
-
             # Make sure to set the network to train() mode
             self.net.train(True)
 
@@ -99,11 +100,11 @@ class CnnClassifier(Model):
         '''
         
         # Raise Errors
+        if not self.check_shape(data.shape):
+            raise ValueError
+        if data.dtype != np.float32:
+            raise TypeError
         try:
-            if data.dtype != np.float32:
-                raise TypeError
-            # We only defined Value Range for labels, but not for data, so I cannot check to raise ValueError
-            
             # Make sure to set the network to eval() mode
             self.net.eval()
             # See above comments on CPU/GPU
@@ -116,3 +117,13 @@ class CnnClassifier(Model):
             return output.detach().cpu().numpy()
         except:
             raise RuntimeError
+            
+    def check_shape(self, shape):
+        '''Checks whether a given shape complys to the input shape of the network'''
+        correct_shape = False
+        if(len(shape)==4):
+            _, c, h, w = shape
+            _, C, H, W = self.in_shape
+            if c==C and h==H and w==W:
+                correct_shape=True
+        return correct_shape

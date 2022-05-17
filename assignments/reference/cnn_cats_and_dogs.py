@@ -78,7 +78,7 @@ class ResNet(nn.Module):
 fp = 'C:/Users/admin/Desktop/10. Semester/Computer Vision/dlvc_ss22/assignments/reference/cifar10'
 n_epochs = 100
 batch_size=128
-input_shape = (3, 32, 32)
+input_shape = (0, 3, 32, 32)
 num_classes = 2
 shuffle = True
 lr = 0.01
@@ -98,8 +98,8 @@ train = BatchGenerator(train_ds, batch_size, shuffle, op)
 valid = BatchGenerator(valid_ds, batch_size, shuffle, op)
 test = BatchGenerator(test_ds, batch_size, shuffle, op)
 
-#net = CNN(input_shape[0])
-net = ResNet(input_shape[0], num_classes)  #input_shape[0] is the number of channels
+#net = CNN(input_shape[1])
+net = ResNet(input_shape[1], num_classes)  #input_shape[1] is the number of channels
 # move to cuda if available
 net.to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
 
